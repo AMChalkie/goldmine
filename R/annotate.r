@@ -400,7 +400,12 @@ getFeatures <- function(tables=c("wgEncodeRegDnaseClusteredV3","wgEncodeRegTfbsC
 
 	togr <- function(x)
 	{
+# set names for rmsk
+if ("chrom" %in% colnames(x)){
 		setnames(x,c("chrom","chromStart","chromEnd"),c("chr","start","end"))
+} else {
+                setnames(x,c("genoName","genoStart","genoEnd"),c("chr","start","end"))
+}
 		x$bin <- NULL
 		x[,start:=start+1]
 		makeGRanges(x)
